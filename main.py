@@ -141,7 +141,9 @@ def forecast_case(case, name):
                 sigma = 0.05
             else:
                 pred = clamp(r * ratio, 0.01, 99.99)
-                sigma = 0.85
+                # The documented refresh moves the pool by a known factor with
+                # earners nearly unchanged, so the outcome spread is small.
+                sigma = 0.25
             rows.append({"id": trophy["id"], "q": [round4(clamp(expit(logit(pred) + z * sigma), 0.0, 100.0)) for z in Z]})
         return {"trophies": rows}
 
